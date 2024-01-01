@@ -24,6 +24,10 @@ public class SignalRController : MonoBehaviour
     public string Grab;
     public string signalRHubURL;
 
+    public Slider rotateSlider;
+    public Slider reachSlider;
+    public Slider grabSlider;
+
     private int rotateValueOld;
     private int rotateValue;
     private int reachValueOld;
@@ -44,7 +48,6 @@ public class SignalRController : MonoBehaviour
     {
         Debug.Log("Starting SignalR Class");
         StartSignalR();
-
     }
 
     public void SetRotation(float value)
@@ -130,7 +133,7 @@ public class SignalRController : MonoBehaviour
             rotateDrive.target = rotateValue;
             baseArticulation.xDrive = rotateDrive;
             remoteMoveRotation = true;
-            // GameObject.Find("RotateSlider").GetComponent<Slider>().value = value;
+            rotateSlider.value = rotateValue;
         }
 
         if (reachValue != reachValueOld )
@@ -142,7 +145,7 @@ public class SignalRController : MonoBehaviour
             armArticulation.xDrive = reachDrive;
 
             remoteMoveReach = true;
-            // GameObject.Find("ReachSlider").GetComponent<Slider>().value = value;
+            reachSlider.value = reachValue;
         }
 
         if (grabValue != grabValueOld )
@@ -155,7 +158,7 @@ public class SignalRController : MonoBehaviour
             grabValueFloat = (grabValueFloat - 75) / 105;
 
             robotController.joints[6].robotPart.GetComponent<PincherController>().grip = grabValueFloat;
-            // GameObject.Find("GrabSlider").GetComponent<Slider>().value = value;
+            grabSlider.value = grabValue;
         }
     }
 
@@ -177,17 +180,17 @@ public class SignalRController : MonoBehaviour
 
     void rotationDisableTimerExpired(System.Object source, ElapsedEventArgs e)
     {
-        // GameObject.Find("RotateSlider").GetComponent<Slider>().interactable = true;
+        rotateSlider.interactable = true;
     }
 
     void reachDisableTimerExpired(System.Object source, ElapsedEventArgs e)
     {
-        // GameObject.Find("ReachSlider").GetComponent<Slider>().interactable = true;
+        reachSlider.interactable = true;
     }
 
     void grabDisableTimerExpired(System.Object source, ElapsedEventArgs e)
     {
-        // GameObject.Find("GrabSlider").GetComponent<Slider>().interactable = true;
+        grabSlider.interactable = true;
     }
 
     async void StartSignalR()
@@ -211,7 +214,7 @@ public class SignalRController : MonoBehaviour
 
                         setRemoteRotate(Int32.Parse(message));
                         remoteMoveRotation = true;
-                        // GameObject.Find("RotateSlider").GetComponent<Slider>().interactable = false;
+                        rotateSlider.interactable = false;
                         disableRotationTimer.AutoReset = false;
                         disableRotationTimer.Start();
                         break;
@@ -220,7 +223,7 @@ public class SignalRController : MonoBehaviour
 
                         setRemoteReach(Int32.Parse(message));
                         remoteMoveReach = true;
-                        // GameObject.Find("ReachSlider").GetComponent<Slider>().interactable = false;
+                        reachSlider.interactable = false;
                         disableReachTimer.AutoReset = false;
                         disableReachTimer.Start();
                         break;
@@ -229,7 +232,7 @@ public class SignalRController : MonoBehaviour
 
                         setRemoteGrab(Int32.Parse(message));
                         remoteMoveGrab = true;
-                        // GameObject.Find("GrabSlider").GetComponent<Slider>().interactable = false;
+                        grabSlider.interactable = false;
                         disableGrabTimer.AutoReset = false;
                         disableGrabTimer.Start();
 
