@@ -50,7 +50,7 @@ public class SignalRController : MonoBehaviour
         StartSignalR();
     }
 
-    public void SetRotation(float value)
+    public void SetRotation(Single value)
     {
         Rotation = value.ToString();
         Debug.Log("Rotation is " + value.ToString());
@@ -73,7 +73,7 @@ public class SignalRController : MonoBehaviour
         //robotBody.transform.Rotate(0.0f, value, 0.0f, Space.Self);
     }
 
-    public void SetReach(float value)
+    public void SetReach(Single value)
     {
 
         Reach = value.ToString();
@@ -97,7 +97,7 @@ public class SignalRController : MonoBehaviour
         //robotArm.transform.Rotate(0.0f, 0.0f, value, Space.Self);
     }
 
-    public void SetGrab(float value)
+    public void SetGrab(Single value)
     {
         Grab = value.ToString();
         Debug.Log("Grab is " + value.ToString());
